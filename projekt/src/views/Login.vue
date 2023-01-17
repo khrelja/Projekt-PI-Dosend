@@ -5,7 +5,6 @@
       <div class="illustration">
         <img src="@/assets/test1.png" alt="Illustration" class="image" />
       </div>
-      
     </div>
 
     <div class="right-panel">
@@ -73,11 +72,12 @@ body {
 .left-panel {
   max-width: 100%;
   flex: 1 1 66.666%;
-  background-image: linear-gradient(to bottom right, rgb(177, 241, 231), rgb(144, 209, 199));
+  background-image: linear-gradient(to bottom right, rgba(144,195,228,255), #65c6df);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 15px 150px 150px 5px
 }
 
 .left-panel .illustration {
@@ -98,14 +98,14 @@ body {
 }
 
 .right-panel h1 {
-  color: #0aa195;
+  color: #277286;
   font-size: 48px;
   font-weight: 400;
   margin-bottom: 50px;
 }
 
 .right-panel h1 strong {
-  color: #4a5f5a;
+  color: #37a0c0;
   font-weight: 900;
 }
 
@@ -131,7 +131,7 @@ body {
   top: 50%;
   left: 0px;
   transform: translateY(-50%);
-  color: #AAA;
+  color: rgb(128, 128, 128);
   font-size: 20px;
   transition: 0.4s ease-out;
 }
@@ -145,7 +145,7 @@ body {
   background: none;
   border-bottom: 3px solid #AAA;
 
-  color: #666;
+  color: rgb(128, 128, 128);
   font-size: 20px;
   transition: 0.4s ease-out;
 }
@@ -154,12 +154,12 @@ body {
 .animated-form .form-group.has-content label {
   top: 0px;
   transform: translateY(-100%);
-  color: #6bc7c2;
+  color: rgb(151, 151, 151);
 }
 
 .animated-form .form-group:focus-within input, 
 .animated-form .form-group.has-content input {
-  border-bottom-color: #5fccc3;
+  border-bottom-color: rgb(128, 128, 128);
 }
 .animated-form .form-group.flex-end {
   margin-bottom: 25px;
@@ -168,21 +168,21 @@ body {
   display: inline-block;
   width: auto;
   padding: 15px 60px;
-  border: 3px solid #619b98;
+  border: 3px solid rgb(80, 163, 194);
   border-radius: 999px;
-  background-image: linear-gradient(to right, transparent 50%, #2ec1cc 50%, #309494);
+  background-image: linear-gradient(to right, transparent 50%, #78b9ee 50%, #65c6df);
   background-size: 200%;
 
-  color: #288074;
+  color: rgb(58, 109, 129);
   font-size: 24px;
   font-weight: 500;
   cursor: pointer;
 }
 
 .animated-form .form-group .button:hover {
-  color: rgb(255, 255, 255);
+  color: rgb(190, 237, 255);
   background-position: 100%;
-  border: 3px solid #FFF;
+  border: 3px solid rgb(202, 230, 241);
 }
 
 .animated-form .lost-password a {
@@ -194,6 +194,6 @@ body {
   border-bottom: 2px solid transparent;
 }
 .animated-form .lost-password a:hover {
-  border-bottom-color: #ffffff;
+  border-bottom-color: skyblue;
 }
   </style>
