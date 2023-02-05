@@ -1,9 +1,12 @@
 <template>
-<div class="page-wrap">
-    
+  <div class="page-wrap">
     <div class="left-panel">
       <div class="illustration">
-        <img src="@/assets/test1.png" alt="Illustration" class="image" />
+        <img
+          id="test1.png"
+          src="https://firebasestorage.googleapis.com/v0/b/dosend-99f38.appspot.com/o/test1.png?alt=media&token=c469c29b-b506-4a63-8a4a-a40dc74e9469"
+          class="boy"
+        />
       </div>
     </div>
 
@@ -30,29 +33,27 @@
         </div>
       </form>
     </div>
-
   </div>
-  </template>
+</template>
 
 <script type="text/javascript">
-    let input_fields = document.querySelectorAll('input');
-    
-    for (let i = 0; i < input_fields.length; i++) {
-      let field = input_fields[i];
-      field.addEventListener('input', function (e) {
-        if (e.target.value != "") {
-          e.target.parentNode.classList.add('has-content');
-        } else if (e.target.value == "") {
-          e.target.parentNode.classList.remove('has-content');
-        }
-      });
+let input_fields = document.querySelectorAll("input");
+
+for (let i = 0; i < input_fields.length; i++) {
+  let field = input_fields[i];
+  field.addEventListener("input", function (e) {
+    if (e.target.value != "") {
+      e.target.parentNode.classList.add("has-content");
+    } else if (e.target.value == "") {
+      e.target.parentNode.classList.remove("has-content");
     }
-  </script>
-  <style>
-  * {
-  margin: 0;
-  padding: 0;
-  
+  });
+}
+</script>
+<style>
+.boy {
+  max-height: 100%;
+  max-width: 100%;
 }
 
 body {
@@ -61,23 +62,26 @@ body {
 
 .page-wrap {
   display: flex;
-  
 }
+
 .image {
   max-width: 100%;
-  width: 1200px;  
-  
+  width: 1200px;
 }
 
 .left-panel {
   max-width: 100%;
   flex: 1 1 66.666%;
-  background-image: linear-gradient(to bottom right, rgba(144,195,228,255), #65c6df);
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(144, 195, 228, 255),
+    #65c6df
+  );
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 15px 150px 150px 5px
+  border-radius: 15px 150px 150px 5px;
 }
 
 .left-panel .illustration {
@@ -85,7 +89,7 @@ body {
 }
 
 .left-panel h2 {
-  color: #FFF;
+  color: #fff;
   font-size: 48px;
   font-weight: 400;
   text-align: center;
@@ -107,6 +111,23 @@ body {
 .right-panel h1 strong {
   color: #37a0c0;
   font-weight: 900;
+}
+
+@media only screen and (max-width: 600px) {
+  form {
+    flex-direction: column;
+  }
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+  }
+}
+
+/* Media query for screens smaller than 480px */
+@media only screen and (max-width: 480px) {
+  button[type="submit"] {
+    width: 100%;
+  }
 }
 
 .animated-form h3 {
@@ -143,7 +164,7 @@ body {
   border: none;
   outline: none;
   background: none;
-  border-bottom: 3px solid #AAA;
+  border-bottom: 3px solid #aaa;
 
   color: rgb(128, 128, 128);
   font-size: 20px;
@@ -157,7 +178,7 @@ body {
   color: rgb(151, 151, 151);
 }
 
-.animated-form .form-group:focus-within input, 
+.animated-form .form-group:focus-within input,
 .animated-form .form-group.has-content input {
   border-bottom-color: rgb(128, 128, 128);
 }
@@ -170,7 +191,12 @@ body {
   padding: 15px 60px;
   border: 3px solid rgb(80, 163, 194);
   border-radius: 999px;
-  background-image: linear-gradient(to right, transparent 50%, #78b9ee 50%, #65c6df);
+  background-image: linear-gradient(
+    to right,
+    transparent 50%,
+    #78b9ee 50%,
+    #65c6df
+  );
   background-size: 200%;
 
   color: rgb(58, 109, 129);
@@ -196,4 +222,4 @@ body {
 .animated-form .lost-password a:hover {
   border-bottom-color: skyblue;
 }
-  </style>
+</style>
