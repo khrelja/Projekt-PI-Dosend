@@ -1,35 +1,60 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import store from "@/store";
+import login from "@/views/Login.vue";
+import categories from "@/views/Categories.vue";
+import admin from "@/views/Admin.vue";
 
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomeView,
+    meta: {
+      needsUser: true,
+    },
   },
   {
     path: "/login",
-    name: "Login",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
+    name: "login",
+
+    component: login,
+    meta: {
+      needsUser: false,
+    },
   },
   {
     path: "/categories",
     name: "Categories",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Categories.vue"),
+    component: categories,
+    meta: {
+      needsUser: true,
+    },
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: admin,
+    meta: {
+      needsUser: true,
+    },
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const noUser = store.currentUser === null;
+  console.log("Old route", from.name, "->", to.name, "User", store.currentUser);
+  if (noUser && to.meta.needsUser) {
+    console.log("Not Allowed");
+    next("login");
+  } else {
+    next();
+  }
 });
 
 export default router;

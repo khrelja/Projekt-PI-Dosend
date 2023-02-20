@@ -18,15 +18,25 @@
       <form class="animated-form">
         <h3>Login to your account</h3>
         <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" class="username" />
+          <label for="exampleInputEmail">Email adress</label>
+          <input
+            type="email"
+            v-model="username"
+            id="exampleInputEmail"
+            class="form-control"
+          />
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" class="password" />
+          <label for="exampleInputPassword">Password</label>
+          <input
+            type="password"
+            v-model="password"
+            id="exampleInputPassword"
+            class="form-control"
+          />
         </div>
         <div class="form-group flex-end">
-          <input type="submit" value="LOGIN" class="button" />
+          <input type="button" @click="login" value="LOGIN" class="button" />
         </div>
         <div class="lost-password">
           <a href="#" class="link">Forgot your password?</a>
@@ -37,6 +47,8 @@
 </template>
 
 <script type="text/javascript">
+import { firebase } from "@/firebase";
+
 let input_fields = document.querySelectorAll("input");
 
 for (let i = 0; i < input_fields.length; i++) {
@@ -49,7 +61,35 @@ for (let i = 0; i < input_fields.length; i++) {
     }
   });
 }
+
+export default {
+  name: "Login",
+  data: function () {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    login() {
+      const user = firebase
+        .auth()
+        .signInWithEmailAndPassword(this.username, this.password)
+        .then((result) => {
+          console.log("Login Success", result);
+
+          /* Replaces rutu na home page pa kada se vraca strelicom na proslu stranicu
+           pokaze prijasnji homepage a ne login 
+          this.$router.replace({ name: "home" }); */
+        })
+        .catch(function (e) {
+          console.error("Error", e);
+        });
+    },
+  },
+};
 </script>
+
 <style>
 .boy {
   max-height: 100%;
@@ -117,7 +157,7 @@ body {
   form {
     flex-direction: column;
   }
-  input[type="text"],
+  input[type="email"],
   input[type="password"] {
     width: 100%;
   }
