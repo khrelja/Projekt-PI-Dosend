@@ -8,5 +8,3 @@ const app = createApp(App);
 app.use(router);
 app.use(Croppa);
 app.mount("#app");
-
-/* croppa ne radi. niti najsimple kod za ga koristit nego daje neki error da component nema template */

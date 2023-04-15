@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>CATEGORIES</h1>
+
     <div v-if="categories.length">
       <div v-for="(category, index) in filteredCards" :key="index">
         <h3>
@@ -67,6 +68,15 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div v-for="(category, index) in categories" :key="index">
+      <h3>{{ category.name }}</h3>
+      <flipcard
+        :category-name="category.name"
+        :items="category.items"
+        @add-item-to-list="addItemToList"
+      />
     </div>
   </div>
 </template>
@@ -396,7 +406,6 @@ export default {
     },
   },
   created() {
-    // Listen to changes in Firestore
     const categoriesRef = db.collection("categories");
     categoriesRef.onSnapshot((querySnapshot) => {
       querySnapshot.forEach((doc) => {

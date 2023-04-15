@@ -141,6 +141,7 @@
                 <div class="modal-body">
                   <button type="button" class="mybtn btn btn-info">
                     <router-link to="/Categories" style="color: white">
+                    <router-link to="/Categories">
                       CHOOSE FROM CATEGORIES
                     </router-link></button
                   >&nbsp;&nbsp;&nbsp;

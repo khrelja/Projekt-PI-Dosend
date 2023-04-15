@@ -50,6 +50,9 @@
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <li><router-link to="/lists">My Lists </router-link></li>
+
+                <li><router-link to="/Login">My Lists </router-link></li>
+
                 <li>
                   <router-link to="/Categories"> Create New </router-link>
                 </li>
@@ -156,6 +159,7 @@ export default {
         });
     },
   },
+
   search() {
     this.$router.push(`/search/${this.searchTerm}`);
   },
