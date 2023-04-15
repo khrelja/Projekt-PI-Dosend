@@ -37,12 +37,16 @@
                 </div>
                 <div class="modi modal-body">
                   <button type="button" class="mybtn btn btn-info">
-                    CHOOSE FROM CATEGORIES
+                    <router-link to="/Categories" style="color: white">
+                      CHOOSE FROM CATEGORIES
+                    </router-link>
                   </button>
                   &nbsp;&nbsp;&nbsp;
 
                   <button type="button" class="mybtn btn btn-info">
-                    VIEW LISTS
+                    <router-link to="/Lists" style="color: white">
+                      VIEW LISTS
+                    </router-link>
                   </button>
                 </div>
               </div>
@@ -85,11 +89,15 @@
                 </div>
                 <div class="modal-body">
                   <button type="button" class="mybtn btn btn-info">
-                    CHOOSE FROM CATEGORIES</button
+                    <router-link to="/Categories" style="color: white">
+                      CHOOSE FROM CATEGORIES
+                    </router-link></button
                   >&nbsp;&nbsp;&nbsp;
 
                   <button type="button" class="mybtn btn btn-info">
-                    VIEW LISTS
+                    <router-link to="/Lists" style="color: white">
+                      VIEW LISTS
+                    </router-link>
                   </button>
                 </div>
               </div>
@@ -132,11 +140,15 @@
                 </div>
                 <div class="modal-body">
                   <button type="button" class="mybtn btn btn-info">
-                    CHOOSE FROM CATEGORIES</button
+                    <router-link to="/Categories" style="color: white">
+                      CHOOSE FROM CATEGORIES
+                    </router-link></button
                   >&nbsp;&nbsp;&nbsp;
 
                   <button type="button" class="mybtn btn btn-info">
-                    VIEW LISTS
+                    <router-link to="/Lists" style="color: white">
+                      VIEW LISTS
+                    </router-link>
                   </button>
                 </div>
               </div>
@@ -166,7 +178,18 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import store from "@/store";
+
+export default {
+  name: "home",
+  data() {
+    return {
+      store,
+    };
+  },
+};
+</script>
 
 <style>
 /* size of image in carousel */
@@ -187,20 +210,25 @@
   );
 }
 
-/* button for create list */
 .mybtn {
   font-size: 40px;
   width: 350px;
-  height: 500px;
+  min-height: 350px;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.144);
 }
 
-.modal-dialog {
-  height: 60%;
-}
-.modal-content {
-  height: 50%;
+@media (max-width: 768px) {
+  .modal-dialog {
+    max-width: 50%;
+    margin: auto;
+    max-height: 10%;
+  }
+  .mybtn {
+    font-size: 4px;
+    min-height: auto;
+    padding: 20px;
+  }
 }
 
 .modal {
@@ -215,8 +243,7 @@
 }
 
 .listb {
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+  background-color: transparent;
   color: white;
   font-weight: bold;
   font-size: 30px;
@@ -227,8 +254,24 @@
   align-items: center;
   justify-content: center;
   margin: auto;
+  transition: background-color 0.5s ease;
 }
 
+.listb:hover {
+  background-color: blue;
+}
+.listb.btn-outline-info {
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  border-color: skyblue;
+  transition: background-color 0.5s ease;
+}
+
+.listb.btn-outline-info:hover {
+  background-color: skyblue;
+  border-color: skyblue;
+}
 @media (max-width: 600px) {
   .listb {
     font-size: 25px;

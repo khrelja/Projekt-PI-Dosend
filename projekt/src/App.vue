@@ -1,99 +1,77 @@
 <template>
   <div id="app">
-    <div>
-      <nav
-        id="nav"
-        class="navbar navbar-expand-lg bg-body-tertiary navbar-scroll"
-      >
-        <div class="container-fluid">
-          <a
-            class="btn btn-primary"
-            data-bs-toggle="offcanvas"
-            href="#offcanvasExample"
-            role="button"
-            aria-controls="offcanvasExample"
-          >
-            <button class="btn">
-              <i class="fa fa-bars"></i> <b> Menu </b>
-            </button>
-          </a>
+    <nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+      <div class="container">
+        <router-link to="/" class="navbar-brand" href="">
+          <img
+            id="logo1.png"
+            src="https://firebasestorage.googleapis.com/v0/b/dosend-99f38.appspot.com/o/logo1.png?alt=media&token=f724e1aa-b059-4442-b365-780ecaa0d6c4"
+            alt="Logo"
+            width="50"
+            class="d-inline-block align-text-center"
+          />
+        </router-link>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-          <div
-            class="offcanvas offcanvas-start"
-            tabindex="-1"
-            id="offcanvasExample"
-            aria-labelledby="offcanvasExampleLabel"
-          >
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasExampleLabel">MENU</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="offcanvas-body">
-              <ul>
-                <div class="list-group">
-                  <li class="items">
-                    <router-link
-                      to="/"
-                      class="mylist list-group-item list-group-item-action list-group-item-primary"
-                    >
-                      HOME
-                    </router-link>
-                  </li>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                  <li class="items">
-                    <router-link
-                      to="/Login"
-                      class="mylist list-group-item list-group-item-action list-group-item-primary"
-                    >
-                      LOGIN
-                    </router-link>
-                  </li>
-
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                  <li class="items">
-                    <router-link
-                      to="/Login"
-                      class="mylist list-group-item list-group-item-action list-group-item-primary"
-                    >
-                      LIST
-                    </router-link>
-                  </li>
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                  <li class="items">
-                    <router-link
-                      to="/Categories"
-                      class="mylist list-group-item list-group-item-action list-group-item-primary"
-                    >
-                      CATEGORIES
-                    </router-link>
-                  </li>
-                </div>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <router-link to="/" aria-current="page"> HOME </router-link>
+            </li>
+            <li v-if="!store.currentUser" class="nav-item">
+              <router-link to="/Login"> LOGIN </router-link>
+            </li>
+            <li v-if="store.currentUser" class="nav-item">
+              <a href="#" @click.prevent="logout"> LOGOUT </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link mx-2 dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                LISTS
+              </a>
+              <ul
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <li><router-link to="/lists">My Lists </router-link></li>
+                <li>
+                  <router-link to="/Categories"> Create New </router-link>
+                </li>
+                <li></li>
               </ul>
-            </div>
-          </div>
-
-          <div class="containersearch">
-            <input type="text" placeholder="I need..." />
-            <div class="search"></div>
-          </div>
-
-          <router-link to="/" class="navbar-brand" href="">
-            <img
-              id="logo1.png"
-              src="https://firebasestorage.googleapis.com/v0/b/dosend-99f38.appspot.com/o/logo1.png?alt=media&token=f724e1aa-b059-4442-b365-780ecaa0d6c4"
-              alt="Logo"
-              width="50"
-              class="d-inline-block align-text-center"
-            />
-          </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="admin" aria-current="page"> ADMIN </router-link>
+            </li>
+          </ul>
         </div>
-      </nav>
-    </div>
+        <div class="containersearch d-none d-sm-block">
+          <input
+            v-model="store.searchTerm"
+            type="text"
+            placeholder="I need..."
+          />
+          <div class="search"></div>
+        </div>
+      </div>
+    </nav>
+
     <router-view />
 
     <footer class="site-footer">
@@ -137,10 +115,104 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import store from "@/store";
+import { firebase } from "@/firebase";
+import router from "@/router";
+
+firebase.auth().onAuthStateChanged((user) => {
+  const currentRoute = router.currentRoute;
+  if (user) {
+    console.log("User signed in:", user.email);
+    store.currentUser = user.email;
+    if (currentRoute && currentRoute.meta && currentRoute.meta.needsUser) {
+      router.push({ name: "login" });
+    }
+  } else {
+    console.log("User signed out.");
+    store.currentUser = null;
+
+    if (currentRoute && currentRoute.meta && currentRoute.meta.needsUser) {
+      router.push({ name: "Login" });
+    }
+  }
+});
+
+export default {
+  name: "App",
+  data() {
+    return {
+      store,
+    };
+  },
+
+  methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push({ name: "login" });
+        });
+    },
+  },
+  search() {
+    this.$router.push(`/search/${this.searchTerm}`);
+  },
+};
+</script>
 
 <style lang="scss">
-//buttons in menu
+#neubar .nav-link {
+  color: #ffffff;
+  text-shadow: 4px #000000;
+}
+
+#neubar .dropdown-item {
+  color: #ffffff;
+}
+
+#neubar {
+  margin-bottom: 20px;
+  background-color: rgb(144, 195, 228, 255);
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+#neubar .dropdown-menu a:hover {
+  color: #64bfcf;
+}
+#neubar .nav-item {
+  margin: auto 4px;
+}
+#neubar a {
+  padding-left: 12px;
+  padding-right: 12px;
+  color: white;
+}
+#neubar .dropdown-menu {
+  background: #589fce;
+}
+a.navbar-brand {
+  color: #d8d8d8;
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link {
+  color: #fff;
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
+
+@media (min-width: 992px) {
+  .fixed-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+} //buttons in menu
 .mylist {
   color: rgb(255, 255, 255);
   text-shadow: 0px 0.5px 0px #000000;
@@ -155,11 +227,10 @@
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
+.navbar {
   background-color: none;
-  position: absolute;
-  top: 30px;
+  position: relative;
+  top: 0;
   width: 100%;
   z-index: 999;
 
@@ -300,6 +371,20 @@ html,
       opacity: 0.5;
       font-weight: bolder;
     }
+  }
+}
+#navbarSearch {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  #navbarSearch {
+    position: relative;
+    top: auto;
+    width: auto;
   }
 }
 
