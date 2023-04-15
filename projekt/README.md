@@ -1,19 +1,16 @@
-# projekt
+<h1>DOSEND</h1>
 
-## Project setup
-```
-npm install
-```
+Projekt web aplikacije za stvaranje liste za zdraviju kupovinu
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Korisnik moze napraviti listu preko forme ili na stranici kategorija
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Na stranici kategorija hrane korisnik ima uvid u detalje hrane koje moze odabrati na svoju listu te sliku proizvoda kako bi ga brže prepoznao
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Javni link na aplikaciju:
+
+<h1>ORGANIZACIJA</h1>
+<a href ="https://www.unipu.hr">  Sveučilište Jurja Dobrile u Puli </a>
+<a href ="https://fipu.unipu.hr"> Fakultet informatike u Puli </a>
+
+Programsko inženjerstvo, ak.god. 2022./2023
+Mentor: Nikola Tanković (https://fipu.unipu.hr/fipu/nikola.tankovic, nikola.tankovic@unipu.hr)
